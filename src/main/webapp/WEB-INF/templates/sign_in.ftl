@@ -7,10 +7,10 @@
 <body>
 <form action="/login/processing" method="post">
     Login:
-    <input type="text" name="username"/>
+    <input type="text" name="username" id="username"/>
     <br>
     Password:
-    <input type="password" name="password"/>
+    <input type="password" name="password" id="password"/>
     <br>
     <input type="submit" value="press me please">
 </form>

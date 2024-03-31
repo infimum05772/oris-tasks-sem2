@@ -36,9 +36,4 @@ public class SecurityConfig {
                 .exceptionHandling()
                 .and().build();
     }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }

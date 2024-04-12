@@ -5,7 +5,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/oris_test_sem2
     username: postgres
-    password: reg123321reg
+    password: *
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
@@ -17,7 +17,7 @@ spring:
     change-log: classpath:/db/changelog/db-changelog.xml
     url: jdbc:postgresql://localhost:5432/oris_test_sem2
     user: postgres
-    password: reg123321reg
+    password: *
     driver-class-name: org.postgresql.Driver
   freemarker:
     template-loader-path: /WEB-INF/templates

@@ -1,9 +1,7 @@
 package ru.kpfu.itis.arifulina.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -12,6 +10,7 @@ import java.util.Set;
 @Table(name = "users")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -25,10 +24,17 @@ public class User {
     @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", length = 64, nullable = false)
     private String password;
 
-    @ManyToMany
+    @Column(name = "verification_code", length = 128)
+    private String verificationCode;
+
+    @Column(name = "enabled")
+    @ColumnDefault("false")
+    private boolean enabled;
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

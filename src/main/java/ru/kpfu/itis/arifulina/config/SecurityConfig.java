@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .antMatchers("/profile").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/admin/**").hasRole("ADMIN");
 
-        return  httpSecurity.csrf().disable()
+        return httpSecurity.csrf().disable()
                 .formLogin()
                 .loginPage("/sign_in")
                 .loginProcessingUrl("/login/processing")
@@ -35,5 +35,10 @@ public class SecurityConfig {
                 .and()
                 .exceptionHandling()
                 .and().build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

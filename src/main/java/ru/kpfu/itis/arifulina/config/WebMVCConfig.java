@@ -14,9 +14,4 @@ public class WebMVCConfig implements WebMvcConfigurer {
         registry.addViewController("/sign_in").setViewName("sign_in");
         registry.addViewController("/sign_up").setViewName("sign_up");
     }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }

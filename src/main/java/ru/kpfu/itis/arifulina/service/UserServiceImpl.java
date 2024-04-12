@@ -38,11 +38,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto create(CreateUserRequestDto dto, String url) {
-        sendVerificationCode(dto.getEmail(), dto.getName(), RandomString.make(128), url);
+        String code = RandomString.make(128);
+        sendVerificationCode(dto.getEmail(), dto.getName(), code, url);
         return new UserDto(userRepository.save(
                 User.builder()
                         .name(dto.getName())
                         .password(passwordEncoder.encode(dto.getPassword()))
+                        .verificationCode(code)
                         .username(dto.getEmail()).build()
         ).getName());
     }

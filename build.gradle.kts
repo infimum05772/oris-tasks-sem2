@@ -5,7 +5,7 @@ plugins {
     id("application")
     id("org.springframework.boot") version "2.7.17"
     id("org.liquibase.gradle") version "2.2.0"
-
+    id("jacoco")
 }
 
 apply(plugin = "io.spring.dependency-management")
@@ -49,13 +49,39 @@ dependencies {
 
     implementation("javax.mail:javax.mail-api:${properties["javaxMailVersion"]}")
 
-//    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-//    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.2.0")
 }
 
-//tasks.test {
-//    useJUnitPlatform()
-//}
+tasks.withType<Test> {
+    useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(false)
+        csv.required.set(false)
+        html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+    reportsDirectory.set(layout.buildDirectory.dir("customJacocoRepostDir"))
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = "0.5".toBigDecimal()
+            }
+        }
+    }
+}
 
 var props = Properties()
 props.load(file("src/main/resources/liquibase.properties").inputStream())

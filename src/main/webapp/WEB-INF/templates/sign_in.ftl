@@ -14,5 +14,8 @@
     <br>
     <input type="submit" value="press me please">
 </form>
+<#if error??>
+    <div style="color: coral">${error}</div>
+</#if>
 </body>
 </html>

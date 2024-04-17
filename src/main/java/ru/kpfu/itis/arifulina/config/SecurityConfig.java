@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import ru.kpfu.itis.arifulina.base.ParamsKey;
 
 @Configuration
 @EnableWebSecurity
@@ -17,21 +18,22 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .antMatchers("/index", "sign_up", "/sign_in").anonymous()
-                .antMatchers("/profile").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/admin/**").hasRole("ADMIN");
+                .antMatchers(ParamsKey.SIGN_UP_RM, ParamsKey.SIGN_IN_RM, ParamsKey.USER_RM).anonymous()
+                .antMatchers(ParamsKey.PROFILE_RM, ParamsKey.EXCHANGE_RATES_RM + "/**",
+                        ParamsKey.KAZAN_WEATHER_RM + "/**").hasAnyRole(ParamsKey.ROLE_USER, ParamsKey.ROLE_ADMIN)
+                .antMatchers(ParamsKey.ADMIN_RM + "/**").hasRole(ParamsKey.ROLE_ADMIN);
 
         return httpSecurity.csrf().disable()
                 .formLogin()
-                .loginPage("/sign_in")
-                .loginProcessingUrl("/login/processing")
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/profile", true)
-                .failureUrl("/sign_in?error=true")
+                .loginPage(ParamsKey.SIGN_IN_RM)
+                .loginProcessingUrl(ParamsKey.LOGIN_PROCESSING_RM)
+                .usernameParameter(ParamsKey.USERNAME_PARAM)
+                .passwordParameter(ParamsKey.PASSWORD_PARAM)
+                .defaultSuccessUrl(ParamsKey.PROFILE_RM, true)
+                .failureUrl(ParamsKey.LOGIN_FAILURE_RM)
                 .and()
                 .logout()
-                .logoutSuccessUrl("/sign_in")
+                .logoutSuccessUrl(ParamsKey.SIGN_IN_RM)
                 .and()
                 .exceptionHandling()
                 .and().build();

@@ -5,6 +5,8 @@ build/
 !**/src/test/**/build/
 
 /src/main/resources/application.yaml
+/src/main/resources/liquibase.properties
+/src/main/resources/db
 
 ### IntelliJ IDEA ###
 .idea

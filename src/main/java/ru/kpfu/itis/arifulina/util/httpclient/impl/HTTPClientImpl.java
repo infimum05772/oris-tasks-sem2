@@ -1,6 +1,9 @@
-package ru.kpfu.itis.arifulina.httpclient;
+package ru.kpfu.itis.arifulina.util.httpclient.impl;
 
 import com.google.gson.Gson;
+import org.springframework.stereotype.Component;
+import ru.kpfu.itis.arifulina.util.httpclient.HttpClient;
+import ru.kpfu.itis.arifulina.util.httpclient.exc.HttpClientException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +14,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+@Component
 public class HTTPClientImpl implements HttpClient {
 
     @Override

@@ -3,6 +3,7 @@ package ru.kpfu.itis.arifulina.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import ru.kpfu.itis.arifulina.base.ParamsKey;
 import ru.kpfu.itis.arifulina.dto.CreateUserRequestDto;
 import ru.kpfu.itis.arifulina.dto.UserDto;
 import ru.kpfu.itis.arifulina.service.UserService;
@@ -15,25 +16,25 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping(value = "/users")
+    @GetMapping(value = ParamsKey.USERS_RM)
     @ResponseBody
-    public List<UserDto> findUsersByName(@RequestParam String name) {
+    public List<UserDto> findUsersByName(@RequestParam(ParamsKey.NAME_PARAM) String name) {
         return userService.findAllByName(name);
     }
 
-    @PostMapping(value = "/user")
+    @PostMapping(value = ParamsKey.USER_RM)
     public String create(@ModelAttribute CreateUserRequestDto user,
                          HttpServletRequest request) {
         String url = request.getRequestURL().toString().replace(request.getServletPath(), "");
         userService.create(user, url);
-        return "sign_up_success";
+        return ParamsKey.SIGN_UP_SUCCESS_VN;
     }
 
-    @GetMapping("/verification")
-    public String verify(@RequestParam("code") String code) {
+    @GetMapping(ParamsKey.VERIFICATION_RM)
+    public String verify(@RequestParam(ParamsKey.CODE_PARAM) String code) {
         if (userService.verify(code)) {
-            return "verification_success";
+            return ParamsKey.VERIFICATION_SUCCESS_VN;
         }
-        return "verification_failed";
+        return ParamsKey.VERIFICATION_FAILED_VN;
     }
 }

@@ -7,9 +7,11 @@ import ru.kpfu.itis.arifulina.base.Messages;
 import ru.kpfu.itis.arifulina.base.ParamsKey;
 
 @RestController
-public class HelloController {
-    @GetMapping(ParamsKey.HELLO_RM)
-    public String hello() {
-        return Messages.HELLO_MSG;
+@RequestMapping(ParamsKey.ADMIN_RM)
+public class AdminController {
+
+    @GetMapping
+    public String admin() {
+        return Messages.ADMIN_MSG;
     }
 }

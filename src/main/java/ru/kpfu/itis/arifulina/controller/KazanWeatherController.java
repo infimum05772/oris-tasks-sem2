@@ -2,33 +2,37 @@ package ru.kpfu.itis.arifulina.controller;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.kpfu.itis.arifulina.httpclient.HTTPClientImpl;
-import ru.kpfu.itis.arifulina.httpclient.HttpClientException;
-import ru.kpfu.itis.arifulina.util.HttpClientProvider;
+import ru.kpfu.itis.arifulina.base.Messages;
+import ru.kpfu.itis.arifulina.base.ParamsKey;
+import ru.kpfu.itis.arifulina.config.OpenWeatherConfig;
+import ru.kpfu.itis.arifulina.util.httpclient.HttpClient;
+import ru.kpfu.itis.arifulina.util.httpclient.exc.HttpClientException;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/kazan-weather")
+@RequestMapping(ParamsKey.KAZAN_WEATHER_RM)
+@RequiredArgsConstructor
 public class KazanWeatherController {
-    public static final String URL = "https://api.openweathermap.org/data/2.5/weather";
-    public static final String API_KEY = "d9150eeddee7ab7195229541fcc66ad8";
-    public static final HTTPClientImpl httpClient = (HTTPClientImpl) HttpClientProvider.getHttpClient();
 
-    @GetMapping("/now")
+    private final HttpClient httpClient;
+    private final OpenWeatherConfig properties;
+
+    @GetMapping(ParamsKey.NOW_RM)
     public String getCurrentKazanWeather() {
         Map<String, String> params = new HashMap<>();
         params.put("q", "kazan");
-        params.put("appid", API_KEY);
+        params.put("appid", properties.getAppid());
         params.put("units", "metric");
         try {
-            return parseWeather(httpClient.get(URL, params, null));
+            return parseWeather(httpClient.get(properties.getUrl(), params, null));
         } catch (HttpClientException e) {
-            return "Something went wrong :(";
+            return Messages.DEF_FAILURE_MSG;
         }
     }
 

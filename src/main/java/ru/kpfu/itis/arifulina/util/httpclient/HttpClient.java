@@ -1,4 +1,6 @@
-package ru.kpfu.itis.arifulina.httpclient;
+package ru.kpfu.itis.arifulina.util.httpclient;
+
+import ru.kpfu.itis.arifulina.util.httpclient.exc.HttpClientException;
 
 import java.util.Map;
 

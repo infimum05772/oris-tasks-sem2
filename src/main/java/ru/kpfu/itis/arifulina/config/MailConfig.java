@@ -4,11 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import ru.kpfu.itis.arifulina.base.ProjectResources;
 
 @Setter
 @Getter
 @Configuration
-@ConfigurationProperties(prefix = "mail")
+@ConfigurationProperties(prefix = ProjectResources.MAIL_PROPS)
 public class MailConfig {
 
     private String content;

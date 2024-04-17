@@ -1,4 +1,4 @@
-import java.util.Properties
+import java.util.*
 
 plugins {
     id("java")
@@ -30,6 +30,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
 
     implementation("org.springframework.security:spring-security-taglibs:${properties["springSecurityVersion"]}")
+    testImplementation("junit:junit:4.13.1")
 
     annotationProcessor("org.hibernate:hibernate-jpamodelgen:${properties["hibernateVersion"]}")
 
@@ -66,6 +67,20 @@ tasks.jacocoTestReport {
         csv.required.set(false)
         html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
     }
+    classDirectories.setFrom(files(classDirectories.files.map {
+        fileTree(it) {
+            exclude(
+                "**/base/**",
+                "**/config/**",
+                "**/dto/**",
+                "**/util/httpclient/**",
+                "**/security/**",
+                "**/repository/**",
+                "**/model/**",
+                "**/Application.class"
+            )
+        }
+    }))
 }
 
 jacoco {

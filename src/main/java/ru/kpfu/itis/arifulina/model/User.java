@@ -2,17 +2,17 @@ package ru.kpfu.itis.arifulina.model;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import ru.kpfu.itis.arifulina.base.Constants;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,17 +24,17 @@ public class User {
     @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "password", length = 64, nullable = false)
+    @Column(name = "password", length = Constants.PASSWORD_MAX_LENGTH, nullable = false)
     private String password;
 
-    @Column(name = "verification_code", length = 128)
+    @Column(name = "verification_code", length = Constants.VERIFICATION_CODE_LENGTH)
     private String verificationCode;
 
     @Column(name = "enabled")
     @ColumnDefault("false")
     private boolean enabled;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

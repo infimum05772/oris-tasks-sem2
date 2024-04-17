@@ -1,4 +1,4 @@
-package ru.kpfu.itis.arifulina.httpclient;
+package ru.kpfu.itis.arifulina.util.httpclient.exc;
 
 public class HttpClientException extends Exception {
     public HttpClientException() {}

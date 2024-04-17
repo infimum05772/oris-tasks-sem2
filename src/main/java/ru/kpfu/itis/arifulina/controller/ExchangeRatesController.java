@@ -2,34 +2,38 @@ package ru.kpfu.itis.arifulina.controller;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.kpfu.itis.arifulina.httpclient.HTTPClientImpl;
-import ru.kpfu.itis.arifulina.httpclient.HttpClientException;
-import ru.kpfu.itis.arifulina.util.HttpClientProvider;
+import ru.kpfu.itis.arifulina.base.Messages;
+import ru.kpfu.itis.arifulina.base.ParamsKey;
+import ru.kpfu.itis.arifulina.config.CurrencyApiConfig;
+import ru.kpfu.itis.arifulina.util.httpclient.HttpClient;
+import ru.kpfu.itis.arifulina.util.httpclient.exc.HttpClientException;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/exchange-rates")
+@RequestMapping(ParamsKey.EXCHANGE_RATES_RM)
+@RequiredArgsConstructor
 public class ExchangeRatesController {
-    public static final String URL = "https://api.currencyapi.com/v3/latest";
-    public static final String API_KEY = "cur_live_oe5zyQLZ8NCBKV5fLhkwqSYdmegXezsAQXn7djum";
-    public static final HTTPClientImpl httpClient = (HTTPClientImpl) HttpClientProvider.getHttpClient();
 
-    @GetMapping("/now")
+    private final HttpClient httpClient;
+    private final CurrencyApiConfig properties;
+
+    @GetMapping(ParamsKey.NOW_RM)
     public String getExchangeRates() {
         Map<String, String> params = new HashMap<>();
-        params.put("apikey", API_KEY);
+        params.put("apikey", properties.getApikey());
         params.put("base_currency", "RUB");
         params.put("currencies", "EUR,USD");
         try {
-            return buildResponseString(httpClient.get(URL, params, null));
+            return buildResponseString(httpClient.get(properties.getUrl(), params, null));
         } catch (HttpClientException e) {
-            return "Something went wrong :(";
+            return Messages.DEF_FAILURE_MSG;
         }
     }
 

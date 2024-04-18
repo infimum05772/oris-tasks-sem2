@@ -2,6 +2,7 @@ package ru.kpfu.itis.arifulina.service;
 
 import lombok.RequiredArgsConstructor;
 import net.bytebuddy.utility.RandomString;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -92,7 +93,7 @@ public class UserServiceImpl implements UserService {
             helper.setText(content);
 
             javaMailSender.send(mimeMessage);
-        } catch (MessagingException | UnsupportedEncodingException e) {
+        } catch (MessagingException | UnsupportedEncodingException | MailException e) {
             throw new RuntimeException(e);
         }
     }

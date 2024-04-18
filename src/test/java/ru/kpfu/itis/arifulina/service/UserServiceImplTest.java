@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.kpfu.itis.arifulina.base.Constants;
@@ -23,6 +24,7 @@ import ru.kpfu.itis.arifulina.repository.RoleRepository;
 import ru.kpfu.itis.arifulina.repository.UserRepository;
 import ru.kpfu.itis.arifulina.util.TestConstants;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -32,6 +34,9 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class UserServiceImplTest {
+
+    public static final String DEFAULT_ENCODING = StandardCharsets.UTF_8.name();
+    public static final String BAD_ENCODING = "BAD-ENCODING";
 
     private static UserService userService;
 
@@ -55,6 +60,7 @@ public class UserServiceImplTest {
 
     @BeforeEach
     public void initService() {
+        ((JavaMailSenderImpl) javaMailSender).setDefaultEncoding(DEFAULT_ENCODING);
         userService = new UserServiceImpl(
                 userRepository,
                 mailConfig,
@@ -101,6 +107,18 @@ public class UserServiceImplTest {
     }
 
     @Test
+    public void testCreateFail() {
+        ((JavaMailSenderImpl) javaMailSender).setDefaultEncoding(BAD_ENCODING);
+        CreateUserRequestDto dto = new CreateUserRequestDto(
+                TestConstants.DEFAULT_USERNAME,
+                TestConstants.DEFAULT_EMAIL,
+                TestConstants.DEFAULT_PASSWORD
+        );
+
+        Assertions.assertThrows(RuntimeException.class, () -> userService.create(dto, TestConstants.DEFAULT_BASE_URL));
+    }
+
+    @Test
     public void testVerify() {
         verifyUser(true);
     }
@@ -122,6 +140,4 @@ public class UserServiceImplTest {
         verify(userRepository, times(success ? 1 : 0)).save(any(User.class));
         verifyNoMoreInteractions(userRepository);
     }
-
-
 }

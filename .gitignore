@@ -8,6 +8,8 @@ build/
 /src/main/resources/liquibase.properties
 /src/main/resources/db
 
+/src/main/resources/http_tests
+
 ### IntelliJ IDEA ###
 .idea
 *.iws

@@ -7,6 +7,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.kpfu.itis.arifulina.aspect.annotation.Loggable;
 import ru.kpfu.itis.arifulina.base.Constants;
 import ru.kpfu.itis.arifulina.base.ParamsKey;
 import ru.kpfu.itis.arifulina.config.MailConfig;
@@ -38,6 +39,7 @@ public class UserServiceImpl implements UserService {
     private final UserToUserDtoMapper userToUserDtoMapper;
 
     @Override
+    @Loggable
     public List<UserDto> findAllByName(String name) {
         return userRepository.findAllByName(name)
                 .stream()
@@ -46,6 +48,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Loggable
     public UserDto create(CreateUserRequestDto dto, String url) {
         String code = RandomString.make(Constants.VERIFICATION_CODE_LENGTH);
         sendVerificationCode(dto.getEmail(), dto.getName(), code, url);
@@ -65,6 +68,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Loggable
     public boolean verify(String code) {
         Optional<User> user = userRepository.findByVerificationCode(code);
         if (user.isPresent()) {
@@ -78,6 +82,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Loggable
     public void sendVerificationCode(String mail, String name, String code, String baseUrl) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);

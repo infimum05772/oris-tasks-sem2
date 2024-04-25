@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.kpfu.itis.arifulina.aspect.annotation.HttpRequest;
+import ru.kpfu.itis.arifulina.aspect.annotation.Loggable;
 import ru.kpfu.itis.arifulina.base.Messages;
 import ru.kpfu.itis.arifulina.base.ParamsKey;
 import ru.kpfu.itis.arifulina.config.CurrencyApiConfig;
@@ -24,6 +26,8 @@ public class ExchangeRatesController {
     private final HttpClient httpClient;
     private final CurrencyApiConfig properties;
 
+    @Loggable
+    @HttpRequest
     @GetMapping(ParamsKey.NOW_RM)
     public String getExchangeRates() {
         Map<String, String> params = new HashMap<>();

@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.kpfu.itis.arifulina.aspect.annotation.HttpRequest;
+import ru.kpfu.itis.arifulina.aspect.annotation.Loggable;
 import ru.kpfu.itis.arifulina.base.Messages;
 import ru.kpfu.itis.arifulina.base.ParamsKey;
 import ru.kpfu.itis.arifulina.config.OpenWeatherConfig;
@@ -23,6 +25,8 @@ public class KazanWeatherController {
     private final HttpClient httpClient;
     private final OpenWeatherConfig properties;
 
+    @Loggable
+    @HttpRequest
     @GetMapping(ParamsKey.NOW_RM)
     public String getCurrentKazanWeather() {
         Map<String, String> params = new HashMap<>();

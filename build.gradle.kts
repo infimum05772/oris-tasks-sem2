@@ -28,6 +28,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-freemarker")
     implementation("org.springframework.boot:spring-boot-starter-mail")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
 
     implementation("org.springframework.security:spring-security-taglibs:${properties["springSecurityVersion"]}")
     testImplementation("junit:junit:4.13.1")

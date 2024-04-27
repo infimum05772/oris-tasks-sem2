@@ -22,6 +22,7 @@ import ru.kpfu.itis.arifulina.model.Role;
 import ru.kpfu.itis.arifulina.model.User;
 import ru.kpfu.itis.arifulina.repository.RoleRepository;
 import ru.kpfu.itis.arifulina.repository.UserRepository;
+import ru.kpfu.itis.arifulina.service.impl.UserServiceImpl;
 import ru.kpfu.itis.arifulina.util.TestConstants;
 
 import java.nio.charset.StandardCharsets;

@@ -20,6 +20,9 @@ public class ParamsKey {
     public static final String USERS_RM = "/users";
     public static final String USER_RM = "/user";
     public static final String VERIFICATION_RM = "/verification";
+    public static final String GLOBAL_CHAT_RM = "/global_chat";
+    public static final String GROUP_CHATS_RM = "/group_chats";
+    public static final String HISTORY_RM = "/history";
 
     // params
     public static final String USERNAME_PARAM = "username";
@@ -27,6 +30,8 @@ public class ParamsKey {
     public static final String CODE_PARAM = "code";
     public static final String AUTH_FAIL_KEY = "error";
     public static final String NAME_PARAM = "name";
+    public static final String ROOM_PARAM = "room";
+    public static final String ROOM_PATH_VAR = "/{" + ROOM_PARAM + "}";
 
     // view names
     public static final String INDEX_VN = "index";
@@ -36,5 +41,16 @@ public class ParamsKey {
     public static final String SIGN_UP_SUCCESS_VN = "sign_up_success";
     public static final String VERIFICATION_SUCCESS_VN = "verification_success";
     public static final String VERIFICATION_FAILED_VN = "verification_failed";
+    public static final String GLOBAL_CHAT_VN = "global_chat";
+    public static final String GROUP_CHATS_VN = "group_chats";
+
+    // chat
+    public static final String BROKER_DEST_PREFIX = "/topic";
+    public static final String APP_DEST_PREFIX = "/app";
+    public static final String ENDPOINT_PATH = "/message-websocket";
+    public static final String MESSAGE_MAPPING = "/message";
+    public static final String ROOM_MESSAGE_MAPPING = "/room-message";
+    public static final String SERVER_SENDER_NAME = "server";
+
 
 }

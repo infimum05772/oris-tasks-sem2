@@ -29,6 +29,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-mail")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-aop")
+    implementation("org.springframework.boot:spring-boot-starter-websocket")
 
     implementation("org.springframework.security:spring-security-taglibs:${properties["springSecurityVersion"]}")
     testImplementation("junit:junit:4.13.1")
@@ -50,6 +51,12 @@ dependencies {
     implementation("javax.servlet.jsp:jsp-api:${properties["jspApiVersion"]}")
 
     implementation("javax.mail:javax.mail-api:${properties["javaxMailVersion"]}")
+
+    implementation("org.webjars:stomp-websocket:2.3.4")
+    implementation("org.webjars:sockjs-client:1.5.1")
+    implementation("org.webjars:jquery:3.6.0")
+    implementation("org.webjars:bootstrap:4.6.0")
+    implementation("org.webjars:webjars-locator-core:0.46")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")

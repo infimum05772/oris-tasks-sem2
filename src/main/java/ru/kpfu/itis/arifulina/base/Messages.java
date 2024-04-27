@@ -17,4 +17,7 @@ public class Messages {
 
     // mvc messages
     public static final String AUTH_FAIL_MSG = "username or password entered incorrectly";
+
+    // chat
+    public static final String SERVER_HELLO_MSG = "Hello, %s";
 }

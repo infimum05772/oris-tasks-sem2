@@ -1,4 +1,4 @@
-package ru.kpfu.itis.arifulina.service;
+package ru.kpfu.itis.arifulina.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import net.bytebuddy.utility.RandomString;
@@ -18,6 +18,7 @@ import ru.kpfu.itis.arifulina.model.Role;
 import ru.kpfu.itis.arifulina.model.User;
 import ru.kpfu.itis.arifulina.repository.RoleRepository;
 import ru.kpfu.itis.arifulina.repository.UserRepository;
+import ru.kpfu.itis.arifulina.service.UserService;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
